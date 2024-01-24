@@ -32,31 +32,19 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     const database = client.db("CartDB");
-    const cartCollections = database.collection("cart");
+    const userCollections = database.collection("users");
 
-    app.post("/todos", async (req, res) => {
+    app.post("/user", async (req, res) => {
         const user = req.body;
-        const result = await todoCollections.insertOne(user);
+        const result = await userCollections.insertOne(user);
         res.send(result);
     });
 
-    app.get("/todos", async (req, res) => {
-        const cursor = todoCollections.find();
+    app.get("/user", async (req, res) => {
+        const cursor = userCollections.find();
         const result = await cursor.toArray();
-        res.send(result);
-      });
-
-    app.post("/pending", async (req, res) => {
-        const user = req.body;
-        const result = await pendingCollections.insertOne(user);
         res.send(result);
     });
-
-    app.get("/pending", async (req, res) => {
-        const cursor = pendingCollections.find();
-        const result = await cursor.toArray();
-        res.send(result);
-      });
 
 
 
